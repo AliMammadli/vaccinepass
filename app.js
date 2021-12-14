@@ -1,7 +1,6 @@
 const express = require('express')
 const dotenv = require('dotenv')
 const multer = require('multer')
-const QrScanner = require('qr-scanner')
 const path = require('path')
 const http = require('http')
 
