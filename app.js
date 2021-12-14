@@ -1,10 +1,11 @@
 const express = require('express')
 const dotenv = require('dotenv')
 const multer = require('multer')
+const path = require('path')
 const http = require('http')
 
 const storage = multer.diskStorage({
-    destination: (req, file, cb) =>  cb(null, __dirname + '/uploads'),
+    destination: (req, file, cb) =>  cb(null, path.join(__dirname + '/uploads')),
     filename: (req, file, cb) => cb(null, require('crypto').randomBytes(16).toString('hex') + '.pdf')
 })
 const upload = multer({ storage: storage })
@@ -13,9 +14,9 @@ dotenv.config()
 const app = express()
 app.use(express.json())
 
-app.use(express.static(__dirname + '/client/build'))
+app.use(express.static(path.join(__dirname + '/client/build')))
 app.get('*', (req, res) => {
-    res.sendFile(__dirname + '/client/build')
+    res.sendFile(path.join(__dirname + '/client/build'))
 })
 
 app.get('/api', (req, res) => {
