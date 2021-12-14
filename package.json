@@ -4,7 +4,7 @@
   "description": "Vaccination Pass generator",
   "main": "index.js",
   "scripts": {
-    "start": "node ./bin/www",
+    "start": "node app",
     "heroku-postbuild": "cd client && npm install && npm run build"
   },
   "author": "Ali Mammadli",

@@ -1,6 +1,7 @@
 const express = require('express')
 const dotenv = require('dotenv')
 const multer = require('multer')
+const http = require('http')
 
 const storage = multer.diskStorage({
     destination: (req, file, cb) =>  cb(null, __dirname + '/uploads'),
@@ -12,9 +13,9 @@ dotenv.config()
 const app = express()
 app.use(express.json())
 
-app.use(express.static(__dirname + 'client/build'))
+app.use(express.static(__dirname + '/client/build'))
 app.get('*', (req, res) => {
-    res.sendFile(__dirname + 'client/build')
+    res.sendFile(__dirname + '/client/build')
 })
 
 app.get('/api', (req, res) => {
@@ -25,4 +26,6 @@ app.post('/upload', upload.single('file'), (req, res) => {
     res.json({ message: 'File uploaded' })
 })
 
-app.listen(process.env.PORT, () => { console.log('Server Started') })
+const server = http.createServer(app)
+
+server.listen(process.env.PORT, () => { console.log('Server Started') })
