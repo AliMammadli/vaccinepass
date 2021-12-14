@@ -1,4 +1,5 @@
 import React from 'react'
+import QrScanner from 'qr-scanner'
 import './App.css'
 
 export default class App extends React.Component {
@@ -20,14 +21,13 @@ export default class App extends React.Component {
 
     handleSubmit = async (e) => {
         e.preventDefault()
-        // let reader = new FileReader()
-        // reader.readAsDataURL(this.state.file)
-        // reader.onloadend = (e) => {
-        //     console.log('load ended')
-        //     this.uploadFile(this.state.file)
-        // }
+        if (!this.state.file) return
 
-        this.uploadFile(this.state.file)
+        QrScanner.scanImage(this.state.file)
+            .then(result => console.log(result))
+            .catch(e => console.log(e, 'No QR code found.'))
+
+        // this.uploadFile(this.state.file)
     }
 
     handleOnChange = (e) => {
